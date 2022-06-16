@@ -210,6 +210,7 @@ func (c *CommitTxHandler) Handle(requestContext *RequestContext, clientContext *
 	select {
 	case txStatus := <-statusNotifier:
 		requestContext.Response.TxValidationCode = txStatus.TxValidationCode
+		requestContext.Response.BlockNumber = txStatus.BlockNumber
 
 		if txStatus.TxValidationCode != pb.TxValidationCode_VALID {
 			requestContext.Error = status.New(status.EventServerStatus, int32(txStatus.TxValidationCode),
